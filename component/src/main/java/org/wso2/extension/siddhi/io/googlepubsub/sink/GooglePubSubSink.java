@@ -138,12 +138,12 @@ public class GooglePubSubSink extends Sink {
                     + "found or you are not permitted to make authenticated calls. Check the credential.path '"
                     + credentialPath + "' defined in stream " + siddhiAppName + " : " + streamID + ".", e);
         }
-
+        createTopic();
     }
 
     @Override
     public void publish(Object payload, DynamicOptions dynamicOptions) {
-        createTopic();
+
         String message = (String) payload;
         ByteString data = ByteString.copyFromUtf8(message);
         PubsubMessage pubsubMessage = PubsubMessage.newBuilder().setData(data).build();

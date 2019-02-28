@@ -137,7 +137,7 @@ public class GooglePubSubSource extends Source {
                     + " found or you are not permitted to make authenticated calls.Check the credential.path '"
                     + credentialPath + "' defined in stream " + siddhiAppName + ": " + streamID, e);
         }
-
+        createSubscription();
     }
 
     @Override
@@ -148,7 +148,7 @@ public class GooglePubSubSource extends Source {
 
     @Override
     public void connect(ConnectionCallback connectionCallback) {
-        createSubscription();
+
         subscriber = Subscriber.newBuilder(subscriptionName, googlePubSubMessageReceiver).setCredentialsProvider
                 (FixedCredentialsProvider.create(credentials)).build();
         subscriber.startAsync().awaitRunning();
