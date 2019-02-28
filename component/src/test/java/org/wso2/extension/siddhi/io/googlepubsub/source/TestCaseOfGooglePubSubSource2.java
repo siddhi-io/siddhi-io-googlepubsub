@@ -23,20 +23,14 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.wso2.siddhi.core.SiddhiAppRuntime;
 import org.wso2.siddhi.core.SiddhiManager;
-import org.wso2.siddhi.core.event.Event;
-import org.wso2.siddhi.core.exception.SiddhiAppCreationException;
-import org.wso2.siddhi.core.stream.input.source.Source;
-import org.wso2.siddhi.core.stream.output.StreamCallback;
-import org.wso2.siddhi.core.util.SiddhiTestHelper;
+import org.wso2.siddhi.core.exception.SiddhiAppCreationException;;
 import org.wso2.siddhi.query.api.exception.SiddhiAppValidationException;
 
-import java.util.Collection;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class TestCaseOfGooglePubSubSource {
+public class TestCaseOfGooglePubSubSource2 {
 
-    private static Logger log = Logger.getLogger(TestCaseOfGooglePubSubSource.class);
+    private static Logger log = Logger.getLogger(TestCaseOfGooglePubSubSource1.class);
     private AtomicInteger count = new AtomicInteger(0);
     private AtomicInteger count1 = new AtomicInteger(0);
     private int waitTime = 50;
@@ -51,158 +45,6 @@ public class TestCaseOfGooglePubSubSource {
         eventArrived = false;
     }
 
-    /**
-     * Test the ability to subscribe to a GooglePubSub topic and and receive messages.
-     */
-    @Test
-    public void testGooglePubSubSourceEvent1() throws Exception {
-
-        log.info("----------------------------------------------------------------------------");
-        log.info("Test to receive messages by subscribing to a topic in google pub sub server.");
-        log.info("----------------------------------------------------------------------------");
-        SiddhiManager siddhiManager = new SiddhiManager();
-        SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(
-                "@App:name('TestExecutionPlan1') "
-                        + "define stream BarStream2 (message string); "
-                        + "@info(name = 'query1') "
-                        + "@source(type ='googlepubsub', "
-                        + "credential.path = 'src/test/resources/security/sp.json',"
-                        + "project.id = 'sp-path-1547649404768', "
-                        + "topic.id = 'topic2', "
-                        + "subscription.id = 'sub2', "
-                        + "@map(type = 'text'))"
-                        + "Define stream FooStream2 (message string);"
-                        + "from FooStream2 select message insert into BarStream2;");
-        siddhiAppRuntime.addCallback("BarStream2", new StreamCallback() {
-            @Override
-            public void receive(Event[] events) {
-                for (Event event : events) {
-                    log.info(event);
-                    eventArrived = true;
-                    count.incrementAndGet();
-                }
-            }
-        });
-        siddhiAppRuntime.start();
-        TestPublisher testClient1 = new TestPublisher("sp-path-1547649404768", "topic2");
-        testClient1.publish("How are you?");
-        testClient1.publish("Hii");
-        SiddhiTestHelper.waitForEvents(waitTime, 2, count, timeout);
-        siddhiAppRuntime.shutdown();
-        siddhiManager.shutdown();
-    }
-
-    /**
-     * Test to configure that multiple subscribers can subscribe for a single topic and consume messages.
-     */
-    @Test
-    public void testGooglePubSubSourceEvent2() throws Exception {
-
-        log.info("--------------------------------------------------------------------------------------------------");
-        log.info("Test to configure that multiple subscribers can subscribe for a single topic and consume messages.");
-        log.info("--------------------------------------------------------------------------------------------------");
-        SiddhiManager siddhiManager = new SiddhiManager();
-        SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(
-                "@App:name('TestExecutionPlan1') "
-                        + "define stream BarStream2 (message string); "
-                        + "@info(name = 'query1') "
-                        + "@source(type ='googlepubsub', "
-                        + "credential.path = 'src/test/resources/security/sp.json',"
-                        + "project.id = 'sp-path-1547649404768', "
-                        + "topic.id = 'topic4', "
-                        + "subscription.id = 'sub4', "
-                        + "@map(type = 'text'))"
-                        + "Define stream FooStream2 (message string);"
-                        + "from FooStream2 select message insert into BarStream2;");
-
-        SiddhiAppRuntime siddhiAppRuntime1 = siddhiManager.createSiddhiAppRuntime(
-                "@App:name('TestExecutionPlan2') "
-                        + "define stream BarStream2 (message string); "
-                        + "@info(name = 'query1') "
-                        + "@source(type ='googlepubsub', "
-                        + "credential.path = 'src/test/resources/security/sp.json',"
-                        + "project.id = 'sp-path-1547649404768', "
-                        + "topic.id = 'topic4', "
-                        + "subscription.id = 'sub44', "
-                        + "@map(type = 'text'))"
-                        + "Define stream FooStream2 (message string);"
-                        + "from FooStream2 select message insert into BarStream2;");
-
-        siddhiAppRuntime.addCallback("BarStream2", new StreamCallback() {
-            @Override
-            public void receive(Event[] events) {
-                for (Event event : events) {
-                    log.info(event);
-                    eventArrived = true;
-                    count.incrementAndGet();
-                }
-            }
-        });
-        siddhiAppRuntime1.addCallback("BarStream2", new StreamCallback() {
-            @Override
-            public void receive(Event[] events) {
-
-                for (Event event : events) {
-                    log.info(event);
-                    eventArrived1 = true;
-                    count1.incrementAndGet();
-                }
-            }
-        });
-        siddhiAppRuntime.start();
-        siddhiAppRuntime1.start();
-        TestPublisher testClient1 = new TestPublisher("sp-path-1547649404768", "topic4");
-        testClient1.publish("Anne");
-        testClient1.publish("John");
-        SiddhiTestHelper.waitForEvents(waitTime, 2, count, timeout);
-        SiddhiTestHelper.waitForEvents(waitTime, 2, count1, timeout);
-        siddhiAppRuntime.shutdown();
-        siddhiAppRuntime1.shutdown();
-        siddhiManager.shutdown();
-
-    }
-
-    /**
-     * If the subscription does not exist,google pub sub source creates a subscription and ingest messages coming to the
-     * topic.
-     */
-    @Test
-    public void testGooglePubSubSourceEvent3() throws Exception {
-
-        log.info("--------------------------------------------------------------------------------------------");
-        log.info("Test to receive messages by creating a new subscription to a topic in google pub sub server.");
-        log.info("--------------------------------------------------------------------------------------------");
-        SiddhiManager siddhiManager = new SiddhiManager();
-        SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(
-                "@App:name('TestExecutionPlan1') "
-                        + "define stream BarStream2 (message string); "
-                        + "@info(name = 'query1') "
-                        + "@source(type ='googlepubsub', "
-                        + "credential.path = 'src/test/resources/security/sp.json',"
-                        + "project.id = 'sp-path-1547649404768', "
-                        + "topic.id = 'topicA', "
-                        + "subscription.id = 'subA18538611', "
-                        + "@map(type = 'text'))"
-                        + "Define stream FooStream2 (message string);"
-                        + "from FooStream2 select message insert into BarStream2;");
-        siddhiAppRuntime.addCallback("BarStream2", new StreamCallback() {
-            @Override
-            public void receive(Event[] events) {
-                for (Event event : events) {
-                    log.info(event);
-                    eventArrived = true;
-                    count.incrementAndGet();
-                }
-            }
-        });
-        siddhiAppRuntime.start();
-        TestPublisher testClient1 = new TestPublisher("sp-path-1547649404768", "topicA");
-        testClient1.publish("WSO2 2019");
-        testClient1.publish("IBM");
-        SiddhiTestHelper.waitForEvents(waitTime, 2, count, timeout);
-        siddhiAppRuntime.shutdown();
-        siddhiManager.shutdown();
-    }
 
 
     /**
@@ -371,60 +213,5 @@ public class TestCaseOfGooglePubSubSource {
         siddhiManager.shutdown();
     }
 
-    /**
-     * Test for configure the GooglePubSub Source with pausing and resuming functionality.
-     */
-    @Test
-    public void testGooglePubSubSourcePause() throws Exception {
-
-        log.info("--------------------------------------------------------------------------------");
-        log.info("Test to configure Google Pub Sub Source with pausing and resuming functionality.");
-        log.info("--------------------------------------------------------------------------------");
-        log = Logger.getLogger(GooglePubSubSource.class);
-        // deploying the execution plan
-        SiddhiManager siddhiManager = new SiddhiManager();
-        SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(
-                "@App:name('TestExecutionPlan1') "
-                        + "define stream BarStream2 (message string); "
-                        + "@info(name = 'query1') "
-                        + "@source(type ='googlepubsub', "
-                        + "credential.path = 'src/test/resources/security/sp.json',"
-                        + "project.id = 'sp-path-1547649404768', "
-                        + "topic.id = 'topicB', "
-                        + "subscription.id = 'subB', "
-                        + "@map(type = 'text'))"
-                        + "Define stream FooStream2 (message string);"
-                        + "from FooStream2 select message insert into BarStream2;");
-        Collection<List<Source>> sources = siddhiAppRuntime.getSources();
-        siddhiAppRuntime.addCallback("BarStream2", new StreamCallback() {
-            @Override
-            public void receive(Event[] events) {
-                for (Event event : events) {
-                    log.info(event);
-                    eventArrived = true;
-                    count.incrementAndGet();
-                }
-            }
-        });
-        siddhiAppRuntime.start();
-        TestPublisher testClient1 = new TestPublisher("sp-path-1547649404768", "topicB");
-
-        // pause
-        sources.forEach(e -> e.forEach(Source::pause));
-        // send few events
-        testClient1.publish("John");
-        testClient1.publish("David");
-        //resume
-        sources.forEach(e -> e.forEach(Source::resume));
-        // send few more events
-        testClient1.publish("Marry");
-        testClient1.publish("San");
-
-        SiddhiTestHelper.waitForEvents(waitTime, 4, count, timeout);
-        siddhiAppRuntime.shutdown();
-        siddhiManager.shutdown();
-    }
-
 }
-
 
