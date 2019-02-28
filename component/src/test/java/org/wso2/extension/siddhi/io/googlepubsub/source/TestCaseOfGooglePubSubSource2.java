@@ -45,8 +45,6 @@ public class TestCaseOfGooglePubSubSource2 {
         eventArrived = false;
     }
 
-
-
     /**
      * If a property missing which defined as mandatory in the extension definition, then
      * {@link SiddhiAppValidationException} will be thrown.

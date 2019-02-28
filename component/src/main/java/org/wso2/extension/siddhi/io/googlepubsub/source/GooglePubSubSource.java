@@ -29,6 +29,7 @@ import com.google.cloud.pubsub.v1.SubscriptionAdminSettings;
 import com.google.pubsub.v1.ProjectSubscriptionName;
 import com.google.pubsub.v1.ProjectTopicName;
 import com.google.pubsub.v1.PushConfig;
+import org.apache.log4j.Logger;
 import org.wso2.extension.siddhi.io.googlepubsub.util.GooglePubSubConstants;
 import org.wso2.siddhi.annotation.Example;
 import org.wso2.siddhi.annotation.Extension;
@@ -101,6 +102,7 @@ import java.util.Map;
 
 public class GooglePubSubSource extends Source {
 
+    private static final Logger log = Logger.getLogger(GooglePubSubSource.class);
     private String streamID;
     private String siddhiAppName;
     private SubscriptionAdminClient subscriptionAdminClient;
@@ -135,7 +137,7 @@ public class GooglePubSubSource extends Source {
                     + " found or you are not permitted to make authenticated calls.Check the credential.path '"
                     + credentialPath + "' defined in stream " + siddhiAppName + ": " + streamID, e);
         }
-        createSubscription();
+
     }
 
     @Override
@@ -146,7 +148,7 @@ public class GooglePubSubSource extends Source {
 
     @Override
     public void connect(ConnectionCallback connectionCallback) {
-
+        createSubscription();
         subscriber = Subscriber.newBuilder(subscriptionName, googlePubSubMessageReceiver).setCredentialsProvider
                 (FixedCredentialsProvider.create(credentials)).build();
         subscriber.startAsync().awaitRunning();
@@ -200,7 +202,9 @@ public class GooglePubSubSource extends Source {
             subscriptionAdminClient.createSubscription(subscriptionName, topicName, PushConfig.getDefaultInstance(),
                     10);
         } catch (ApiException e) {
-            if (e.getStatusCode().getCode() != StatusCode.Code.ALREADY_EXISTS) {
+            if (e.getStatusCode().getCode() == StatusCode.Code.ALREADY_EXISTS) {
+                log.info("You have a subscription " + subscriptionName + "to the topic " + topicName);
+            } else {
                 throw new SiddhiAppCreationException("An error is caused due to resource " + e.getStatusCode().getCode()
                         + "." + "Check whether you have provided a proper project.id for '" + projectId + "' or "
                         + "existing topic.id for '" + topicId + "' defined in stream " + siddhiAppName + ": " + streamID

@@ -40,7 +40,6 @@ public class TestCaseOfGooglePubSubSink2 {
         eventArrived = false;
     }
 
-
     /**
      * If a property(project.id, topic.id, file.name) which defined as mandatory in the extension definition is missing,
      * then{@link SiddhiAppValidationException} will be thrown.

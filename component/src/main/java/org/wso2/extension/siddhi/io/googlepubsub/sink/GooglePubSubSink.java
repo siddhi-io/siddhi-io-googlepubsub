@@ -36,6 +36,7 @@ import org.wso2.siddhi.annotation.Extension;
 import org.wso2.siddhi.annotation.Parameter;
 import org.wso2.siddhi.annotation.util.DataType;
 import org.wso2.siddhi.core.config.SiddhiAppContext;
+import org.wso2.siddhi.core.exception.ConnectionUnavailableException;
 import org.wso2.siddhi.core.exception.SiddhiAppCreationException;
 import org.wso2.siddhi.core.stream.output.sink.Sink;
 import org.wso2.siddhi.core.util.config.ConfigReader;
@@ -137,18 +138,12 @@ public class GooglePubSubSink extends Sink {
                     + "found or you are not permitted to make authenticated calls. Check the credential.path '"
                     + credentialPath + "' defined in stream " + siddhiAppName + " : " + streamID + ".", e);
         }
-        createTopic();
-        try {
-            publisher = Publisher.newBuilder(topic).setCredentialsProvider(FixedCredentialsProvider.create(credentials))
-                    .build();
-        } catch (IOException e) {
-            throw new SiddhiAppCreationException("Could not create a publisher bound to the topic : " + topic, e);
-        }
+
     }
 
     @Override
     public void publish(Object payload, DynamicOptions dynamicOptions) {
-
+        createTopic();
         String message = (String) payload;
         ByteString data = ByteString.copyFromUtf8(message);
         PubsubMessage pubsubMessage = PubsubMessage.newBuilder().setData(data).build();
@@ -156,7 +151,14 @@ public class GooglePubSubSink extends Sink {
     }
 
     @Override
-    public void connect() {
+    public void connect() throws ConnectionUnavailableException {
+
+        try {
+            publisher = Publisher.newBuilder(topic).setCredentialsProvider(FixedCredentialsProvider.create(credentials))
+                    .build();
+        } catch (IOException e) {
+            throw new ConnectionUnavailableException("Could not create a publisher bound to the topic : " + topic, e);
+        }
 
     }
 
@@ -168,7 +170,8 @@ public class GooglePubSubSink extends Sink {
                 publisher.shutdown();
                 publisher.awaitTermination(1, TimeUnit.MINUTES);
             } catch (Exception e) {
-                log.error("Error in shutting down the publisher : " + publisher);
+                log.error(String.format("Error in shutting down the publisher %s. Message %s.", publisher,
+                        e.getMessage()));
             }
         }
     }
@@ -200,7 +203,9 @@ public class GooglePubSubSink extends Sink {
             topicAdminClient = TopicAdminClient.create(topicAdminSettings);
             topicAdminClient.createTopic(topic);
         } catch (ApiException e) {
-            if (e.getStatusCode().getCode() != StatusCode.Code.ALREADY_EXISTS) {
+            if (e.getStatusCode().getCode() == StatusCode.Code.ALREADY_EXISTS) {
+                log.info("You have the topic '" + topic + "' in google pub sub server.");
+            } else {
                 throw new SiddhiAppCreationException("An error is caused due to a resource "
                         + e.getStatusCode().getCode() + " in Google Pub Sub server." + " Check whether you have "
                         + "provided a proper project.id for '" + projectId + "' defined in stream " + siddhiAppName

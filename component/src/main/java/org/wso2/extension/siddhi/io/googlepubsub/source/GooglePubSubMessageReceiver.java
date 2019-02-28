@@ -58,7 +58,7 @@ public class GooglePubSubMessageReceiver implements MessageReceiver {
         }
 
         ackReplyConsumer.ack();
-        sourceEventListener.onEvent("message :" + "\"" + pubsubMessage.getData().toStringUtf8() + "\"" + " ",
+        sourceEventListener.onEvent("message :" + "'" + pubsubMessage.getData().toStringUtf8() + "'",
                 null);
     }
 

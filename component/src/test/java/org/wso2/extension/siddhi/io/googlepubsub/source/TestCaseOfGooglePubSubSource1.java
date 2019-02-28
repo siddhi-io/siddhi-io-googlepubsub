@@ -179,7 +179,7 @@ public class TestCaseOfGooglePubSubSource1 {
                         + "credential.path = 'src/test/resources/security/sp.json',"
                         + "project.id = 'sp-path-1547649404768', "
                         + "topic.id = 'topicA', "
-                        + "subscription.id = 'subA18538611', "
+                        + "subscription.id = 'subA8888811', "
                         + "@map(type = 'text'))"
                         + "Define stream FooStream2 (message string);"
                         + "from FooStream2 select message insert into BarStream2;");

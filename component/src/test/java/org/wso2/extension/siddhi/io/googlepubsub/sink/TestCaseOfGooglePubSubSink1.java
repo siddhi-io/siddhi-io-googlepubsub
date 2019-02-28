@@ -110,7 +110,7 @@ public class TestCaseOfGooglePubSubSink1 {
         SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(
                 "define stream FooStream (message string); " + "@info(name = 'query1') "
                         + "@sink(type='googlepubsub', "
-                        + "topic.id = 'topickd31221', "
+                        + "topic.id = 'topickd999921', "
                         + "credential.path = 'src/test/resources/security/sp.json',"
                         + "project.id = 'sp-path-1547649404768', "
                         + "@map(type='text'))"

@@ -128,7 +128,7 @@ under the License.
             <dependency>
                 <groupId>org.testng</groupId>
                 <artifactId>testng</artifactId>
-                <version>6.11</version>
+                <version>${testing.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -182,6 +182,7 @@ under the License.
     <properties>
         <siddhi.version>4.1.0</siddhi.version>
         <log4j.version>1.2.17.wso2v1</log4j.version>
+        <testing.version>6.11</testing.version>
         <carbon.transport.version>4.4.15</carbon.transport.version>
         <jacoco.plugin.version>0.7.9</jacoco.plugin.version>
         <google.cloud.version>1.63.0</google.cloud.version>
