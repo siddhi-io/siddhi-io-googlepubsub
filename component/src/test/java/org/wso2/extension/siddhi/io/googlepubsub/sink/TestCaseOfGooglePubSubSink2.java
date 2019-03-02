@@ -24,6 +24,7 @@ import org.testng.annotations.Test;
 import org.wso2.siddhi.core.SiddhiAppRuntime;
 import org.wso2.siddhi.core.SiddhiManager;
 import org.wso2.siddhi.core.exception.SiddhiAppCreationException;
+import org.wso2.siddhi.core.exception.SiddhiAppRuntimeException;
 import org.wso2.siddhi.core.stream.input.InputHandler;
 import org.wso2.siddhi.query.api.exception.SiddhiAppValidationException;
 
@@ -90,35 +91,10 @@ public class TestCaseOfGooglePubSubSink2 {
     }
 
     /**
-     * Test to configure if user is not permitted to be authenticated, then
-     * an error will be thrown.
-     */
-    @Test(expectedExceptions = SiddhiAppCreationException.class)
-    public void googlePubSubPublishWithoutPermission() {
-
-        log.info("------------------------------------------------------------------------------");
-        log.info("Test to publish messages to a project without enabling billing in the project.");
-        log.info("------------------------------------------------------------------------------");
-        // deploying the execution plan
-        SiddhiManager siddhiManager = new SiddhiManager();
-        SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(
-                "define stream FooStream (message string); " + "@info(name = 'query1') "
-                        + "@sink(type='googlepubsub', "
-                        + "topic.id = 'topicD', "
-                        + "credential.path = 'src/test/resources/security/Blue Eye-3d5d8a888785.json',"
-                        + "project.id = 'sp-path-1547649404768', "
-                        + "@map(type='text'))"
-                        + "Define stream BarStream (message string);"
-                        + "from FooStream select message insert into BarStream;");
-        siddhiAppRuntime.start();
-        siddhiAppRuntime.shutdown();
-    }
-
-    /**
      * Test to configure the GooglePubSub Sink publishes messages to a topic in a non existing project in
      * Google Pub Sub server.
      */
-    @Test(expectedExceptions = SiddhiAppCreationException.class)
+    @Test(expectedExceptions = SiddhiAppRuntimeException.class)
     public void googlePubSubSimplePublishTest3() throws InterruptedException {
 
         log.info("-----------------------------------------------------------------");
@@ -145,7 +121,7 @@ public class TestCaseOfGooglePubSubSink2 {
     /**
      * Test to configure the GooglePubSub Sink publishes messages to a topic by specifying project.id as empty
      */
-    @Test(expectedExceptions = SiddhiAppCreationException.class)
+    @Test(expectedExceptions = SiddhiAppRuntimeException.class)
     public void googlePubSubSimplePublishTest4() throws InterruptedException {
 
         log.info("-----------------------------------------------------------");

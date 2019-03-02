@@ -75,7 +75,8 @@ public class TestSubscriber {
         try (FileInputStream serviceAccountStream = new FileInputStream(credentialsPath)) {
             credentials = ServiceAccountCredentials.fromStream(serviceAccountStream);
         } catch (FileNotFoundException e) {
-            log.error("The file that points to your service account credentials is not found.");
+            log.error("The file that points to your service account credentials is not found or you are not permitted" +
+                    "to make authenticated calls");
         } catch (IOException e) {
             log.error("Credentials are missing.");
         }
@@ -98,9 +99,8 @@ public class TestSubscriber {
         } catch (ApiException e) {
             if (e.getStatusCode().getCode() != StatusCode.Code.ALREADY_EXISTS) {
                 log.error("An error is caused due to resource " + e.getStatusCode().getCode() + "." +
-                        " Check whether you have provided a proper " +
-                        "project.id for " + projectId + "and make sure you have all the access to use the " +
-                        "resources in API.", e);
+                        " Check whether you have provided a proper project.id for " + projectId + "and make sure you" +
+                        " have all the access to use the resources in API.", e);
             }
 
         } catch (IOException e) {

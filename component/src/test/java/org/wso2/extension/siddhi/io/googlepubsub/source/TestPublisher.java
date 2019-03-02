@@ -118,7 +118,8 @@ public class TestPublisher {
                 }
 
             } catch (Exception e) {
-                log.error("Error in disconnecting the publisher.");
+                log.error(String.format("Error in shutting down the publisher %s. Message %s.", publisher,
+                        e.getMessage()));
             }
         }
     }

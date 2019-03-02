@@ -179,7 +179,7 @@ public class TestCaseOfGooglePubSubSource1 {
                         + "credential.path = 'src/test/resources/security/sp.json',"
                         + "project.id = 'sp-path-1547649404768', "
                         + "topic.id = 'topicA', "
-                        + "subscription.id = 'subA8888811', "
+                        + "subscription.id = 'subA877711', "
                         + "@map(type = 'text'))"
                         + "Define stream FooStream2 (message string);"
                         + "from FooStream2 select message insert into BarStream2;");
@@ -201,7 +201,6 @@ public class TestCaseOfGooglePubSubSource1 {
         siddhiAppRuntime.shutdown();
         siddhiManager.shutdown();
     }
-
 
     /**
      * Test for configure the GooglePubSub Source with pausing and resuming functionality.
@@ -256,7 +255,4 @@ public class TestCaseOfGooglePubSubSource1 {
         siddhiAppRuntime.shutdown();
         siddhiManager.shutdown();
     }
-
 }
-
-

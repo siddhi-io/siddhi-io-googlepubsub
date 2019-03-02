@@ -36,6 +36,7 @@ import org.wso2.siddhi.annotation.Extension;
 import org.wso2.siddhi.annotation.Parameter;
 import org.wso2.siddhi.annotation.util.DataType;
 import org.wso2.siddhi.core.config.SiddhiAppContext;
+import org.wso2.siddhi.core.exception.ConnectionUnavailableException;
 import org.wso2.siddhi.core.exception.SiddhiAppCreationException;
 import org.wso2.siddhi.core.stream.input.source.Source;
 import org.wso2.siddhi.core.stream.input.source.SourceEventListener;
@@ -137,7 +138,6 @@ public class GooglePubSubSource extends Source {
                     + " found or you are not permitted to make authenticated calls.Check the credential.path '"
                     + credentialPath + "' defined in stream " + siddhiAppName + ": " + streamID, e);
         }
-        createSubscription();
     }
 
     @Override
@@ -147,8 +147,32 @@ public class GooglePubSubSource extends Source {
     }
 
     @Override
-    public void connect(ConnectionCallback connectionCallback) {
-
+    public void connect(ConnectionCallback connectionCallback)throws ConnectionUnavailableException {
+        try {
+            SubscriptionAdminSettings subscriptionAdminSettings = SubscriptionAdminSettings.newBuilder()
+                    .setCredentialsProvider(FixedCredentialsProvider.create(credentials)).build();
+            subscriptionAdminClient = SubscriptionAdminClient.create(subscriptionAdminSettings);
+            subscriptionAdminClient.createSubscription(subscriptionName, topicName, PushConfig.getDefaultInstance(),
+                    10);
+        } catch (ApiException e) {
+            if (e.getStatusCode().getCode() == StatusCode.Code.ALREADY_EXISTS) {
+                log.info("You have a subscription " + subscriptionName + "to the topic " + topicName);
+            } else {
+                log.error("Error in connecting to the resources at " + siddhiAppName + ": " + streamID);
+               throw new ConnectionUnavailableException("An error is caused due to resource " + e.getStatusCode()
+                       .getCode() + "." + "Check whether you have provided a proper project.id for '" + projectId +
+                       "' or " + "existing topic.id for '" + topicId + "' defined in stream " + siddhiAppName + ": " +
+                       streamID + " and make sure you have enough access to use all resources in API.", e);
+            }
+        } catch (IOException e) {
+            throw new ConnectionUnavailableException("Could not create a subscription " + subscriptionName + "to pull "
+                    + "messages from the google pub sub server defined in stream " + siddhiAppName + ": " + streamID,
+                    e);
+        } finally {
+            if (subscriptionAdminClient != null) {
+                subscriptionAdminClient.shutdown();
+            }
+        }
         subscriber = Subscriber.newBuilder(subscriptionName, googlePubSubMessageReceiver).setCredentialsProvider
                 (FixedCredentialsProvider.create(credentials)).build();
         subscriber.startAsync().awaitRunning();
@@ -188,35 +212,5 @@ public class GooglePubSubSource extends Source {
     @Override
     public void restoreState(Map<String, Object> map) {
         // no state no restore
-    }
-
-    /**
-     * Creating a subscription.
-     */
-    private void createSubscription() {
-
-        try {
-            SubscriptionAdminSettings subscriptionAdminSettings = SubscriptionAdminSettings.newBuilder()
-                    .setCredentialsProvider(FixedCredentialsProvider.create(credentials)).build();
-            subscriptionAdminClient = SubscriptionAdminClient.create(subscriptionAdminSettings);
-            subscriptionAdminClient.createSubscription(subscriptionName, topicName, PushConfig.getDefaultInstance(),
-                    10);
-        } catch (ApiException e) {
-            if (e.getStatusCode().getCode() == StatusCode.Code.ALREADY_EXISTS) {
-                log.info("You have a subscription " + subscriptionName + "to the topic " + topicName);
-            } else {
-                throw new SiddhiAppCreationException("An error is caused due to resource " + e.getStatusCode().getCode()
-                        + "." + "Check whether you have provided a proper project.id for '" + projectId + "' or "
-                        + "existing topic.id for '" + topicId + "' defined in stream " + siddhiAppName + ": " + streamID
-                        + " and make sure you have enough access to use all resources in API.", e);
-            }
-        } catch (IOException e) {
-            throw new SiddhiAppCreationException("Could not create a subscription " + subscriptionName + "to pull " +
-                    "messages from the google pub sub server defined in stream " + siddhiAppName + ": " + streamID, e);
-        } finally {
-            if (subscriptionAdminClient != null) {
-                subscriptionAdminClient.shutdown();
-            }
-        }
     }
 }

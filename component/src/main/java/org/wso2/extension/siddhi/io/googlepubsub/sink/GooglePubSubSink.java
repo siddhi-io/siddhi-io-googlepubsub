@@ -38,6 +38,7 @@ import org.wso2.siddhi.annotation.util.DataType;
 import org.wso2.siddhi.core.config.SiddhiAppContext;
 import org.wso2.siddhi.core.exception.ConnectionUnavailableException;
 import org.wso2.siddhi.core.exception.SiddhiAppCreationException;
+import org.wso2.siddhi.core.exception.SiddhiAppRuntimeException;
 import org.wso2.siddhi.core.stream.output.sink.Sink;
 import org.wso2.siddhi.core.util.config.ConfigReader;
 import org.wso2.siddhi.core.util.transport.DynamicOptions;
@@ -56,8 +57,8 @@ import java.util.concurrent.TimeUnit;
 @Extension(
         name = "googlepubsub",
         namespace = "sink",
-        description = "GooglePubSub Sink publishes messages to a topic in  GooglePubSub server. If the required "
-                + "topic doesn't exist, GooglePubSub Sink creates a topic and publish messages to that topic.",
+        description = "GooglePubSub Sink publishes messages to a topic in  GooglePubSub server. If the required topic "
+                + "doesn't exist, GooglePubSub Sink creates a topic and publish messages to that topic.",
         parameters = {
                 @Parameter(
                         name = GooglePubSubConstants.GOOGLE_PUB_SUB_SERVER_PROJECT_ID,
@@ -66,8 +67,8 @@ import java.util.concurrent.TimeUnit;
                 ),
                 @Parameter(
                         name = GooglePubSubConstants.TOPIC_ID,
-                        description = "The topic ID of the topic to which the messages that are processed by Siddhi " +
-                                "are published. ",
+                        description = "The topic ID of the topic to which the messages that are processed by Siddhi "
+                                + "are published. ",
                         type = DataType.STRING
                 ),
                 @Parameter(
@@ -138,7 +139,6 @@ public class GooglePubSubSink extends Sink {
                     + "found or you are not permitted to make authenticated calls. Check the credential.path '"
                     + credentialPath + "' defined in stream " + siddhiAppName + " : " + streamID + ".", e);
         }
-        createTopic();
     }
 
     @Override
@@ -153,6 +153,7 @@ public class GooglePubSubSink extends Sink {
     @Override
     public void connect() throws ConnectionUnavailableException {
 
+        createTopic();
         try {
             publisher = Publisher.newBuilder(topic).setCredentialsProvider(FixedCredentialsProvider.create(credentials))
                     .build();
@@ -206,13 +207,13 @@ public class GooglePubSubSink extends Sink {
             if (e.getStatusCode().getCode() == StatusCode.Code.ALREADY_EXISTS) {
                 log.info("You have the topic '" + topic + "' in google pub sub server.");
             } else {
-                throw new SiddhiAppCreationException("An error is caused due to a resource "
+                throw new SiddhiAppRuntimeException("An error is caused due to a resource "
                         + e.getStatusCode().getCode() + " in Google Pub Sub server." + " Check whether you have "
                         + "provided a proper project.id for '" + projectId + "' defined in stream " + siddhiAppName
                         + ": " + streamID + " and make sure you have enough access to use all resources in API.", e);
             }
         } catch (IOException e) {
-            throw new SiddhiAppCreationException("Could not create the topic " + topic + "in the google pub sub "
+            throw new SiddhiAppRuntimeException("Could not create the topic " + topic + "in the google pub sub "
                     + "server, under the project.id '" + projectId + "' defined in stream " + siddhiAppName + " : "
                     + streamID + ".", e);
         } finally {
