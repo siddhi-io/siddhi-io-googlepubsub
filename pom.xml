@@ -33,6 +33,15 @@ under the License.
     <artifactId>siddhi-io-googlepubsub-parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <name>Siddhi I/O googlepubsub</name>
+
+    <scm>
+        <connection>scm:git:https://github.com/wso2-extensions/siddhi-io-googlepubsub.git</connection>
+        <url>https://github.com/wso2-extensions/siddhi-io-googlepubsub.git</url>
+        <developerConnection>scm:git:https://github.com/wso2-extensions/siddhi-io-googlepubsub.git
+        </developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
