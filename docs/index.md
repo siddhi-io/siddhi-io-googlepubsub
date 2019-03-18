@@ -6,9 +6,9 @@ The **siddhi-IO-googlepubsub extension** is an extension to <a target="_blank" h
 
 Find some useful links below:
 
-* <a target="_blank" href="https://github.com/wso2-extensions/siddhi-map-xml">Source code</a>
-* <a target="_blank" href="https://github.com/wso2-extensions/siddhi-map-xml/releases">Releases</a>
-* <a target="_blank" href="https://github.com/wso2-extensions/siddhi-map-xml/issues">Issue tracker</a>
+* <a target="_blank" href="https://github.com/wso2-extensions/siddhi-io-googlepubsub">Source code</a>
+* <a target="_blank" href="https://github.com/wso2-extensions/siddhi-io-googlepubsub/releases/releases">Releases</a>
+* <a target="_blank" href="https://github.com/wso2-extensions/siddhi-io-googlepubsub/issues">Issue tracker</a>
 
 ## Latest API Docs 
 
@@ -29,7 +29,7 @@ Latest API Docs is <a target="_blank" href="https://wso2-extensions.github.io/si
 ```
      <dependency>
              <groupId>org.wso2.extension.siddhi.io.</groupId>
-             <artifactId>siddhi-io-</artifactId>
+             <artifactId>siddhi-io-googlepubsubhttps://github.com/wso2-extensions/siddhi-map-xml/issues</artifactId>
              <version>x.x.x</version>
           </dependency>
 ```
