@@ -29,7 +29,7 @@ Latest API Docs is <a target="_blank" href="https://wso2-extensions.github.io/si
 ```
      <dependency>
              <groupId>org.wso2.extension.siddhi.io.</groupId>
-             <artifactId>siddhi-io-googlepubsubhttps://github.com/wso2-extensions/siddhi-map-xml/issues</artifactId>
+             <artifactId>siddhi-io-googlepubsub</artifactId>
              <version>x.x.x</version>
           </dependency>
 ```
@@ -46,14 +46,14 @@ Latest API Docs is <a target="_blank" href="https://wso2-extensions.github.io/si
 
 ## Features
 
-* <a target="_blank" href="https://wso2-extensions.github.io/siddhi-io-googlepubsub/api/4.1.0/#googlepubsub-sink">googlepubsub</a> *<a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#">(Sink)</a>*<br><div style="padding-left: 1em;"><p>This sends messages to a topic in googlepubsub server.</p></div>
-* <a target="_blank" href="https://wso2-extensions.github.io/siddhi-io-googlepubsub/api/4.1.0/#googlepubsub-source">googlepubsub</a> *<a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#">(Source)</a>*<br><div style="padding-left: 1em;"><p>This receives messages from a topic in googlepubsub server.</p></div>
+* <a target="_blank" href="https://wso2-extensions.github.io/siddhi-io-googlepubsub/api/v1.0.0-SNAPSHOT/#googlepubsub-sink">googlepubsub</a> *<a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#">(Sink)</a>*<br><div style="padding-left: 1em;"><p>This sends messages to a topic in googlepubsub server.</p></div>
+* <a target="_blank" href="https://wso2-extensions.github.io/siddhi-io-googlepubsub/api/v1.0.0-SNAPSHOT/#googlepubsub-source">googlepubsub</a> *<a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#">(Source)</a>*<br><div style="padding-left: 1em;"><p>This receives messages from a topic in googlepubsub server.</p></div>
 
 ## How to Contribute
  
-  * Please report issues at <a target="_blank" href="https://github.com/wso2-extensions/siddhi-map-xml/issues">GitHub Issue Tracker</a>.
+  * Please report issues at <a target="_blank" href="https://github.com/wso2-extensions/siddhi-map-googlepubsub/issues">GitHub Issue Tracker</a>.
   
-  * Send your contributions as pull requests to <a target="_blank" href="https://github.com/wso2-extensions/siddhi-map-xml/tree/master">master branch</a>. 
+  * Send your contributions as pull requests to <a target="_blank" href="https://github.com/wso2-extensions/siddhi-map-googlepubsub/tree/master">master branch</a>. 
  
 ## Contact us 
 
