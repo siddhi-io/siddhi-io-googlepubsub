@@ -29,7 +29,7 @@ under the License.
     </modules>
     <groupId>org.wso2.extension.siddhi.io.googlepubsub</groupId>
     <artifactId>siddhi-io-googlepubsub-parent</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2-SNAPSHOT</version>
     <name>Siddhi I/O googlepubsub</name>
 
     <scm>
@@ -37,7 +37,7 @@ under the License.
         <url>https://github.com/wso2-extensions/siddhi-io-googlepubsub.git</url>
         <developerConnection>scm:git:https://github.com/wso2-extensions/siddhi-io-googlepubsub.git
         </developerConnection>
-        <tag>v1.0.1</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <dependencyManagement>
