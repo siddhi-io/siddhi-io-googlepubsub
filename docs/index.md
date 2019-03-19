@@ -1,7 +1,7 @@
 siddhi-io-googlepubsub
 ======================================
 
-The **siddhi-IO-googlepubsub extension** is an extension to <a target="_blank" href="https://wso2.github
+The **siddhi-IO-googlepubsub extension** is an extension to <a target="_blank" href="https://siddhi-io.github
 .io/siddhi">Siddhi</a> that supports sending messages in text format and receiving messages in text format.
 
 Find some useful links below:
@@ -22,13 +22,13 @@ Latest API Docs is <a target="_blank" href="https://wso2-extensions.github.io/si
 
 * This extension is shipped by default with WSO2 Stream Processor, if you wish to use an alternative version of this extension you can replace the component <a target="_blank" href="https://github.com/wso2-extensions/siddhi-map-googlepubsub/releases">jar</a> that can be found in the `<STREAM_PROCESSOR_HOME>/lib` directory.
 
-**Using the extension as a <a target="_blank" href="https://wso2.github.io/siddhi/documentation/running-as-a-java-library">java library</a>**
+**Using the extension as a <a target="_blank" href="https://siddhi-io.github.io/siddhi/documentation/running-as-a-java-library">java library</a>**
 
 * This extension can be added as a maven dependency along with other Siddhi dependencies to your project.
 
 ```
      <dependency>
-             <groupId>org.wso2.extension.siddhi.io.</groupId>
+             <groupId>org.wso2.extension.siddhi.io.googlepubsub</groupId>
              <artifactId>siddhi-io-googlepubsub</artifactId>
              <version>x.x.x</version>
           </dependency>
