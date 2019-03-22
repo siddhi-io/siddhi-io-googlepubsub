@@ -1,20 +1,32 @@
-site_name: Siddhi-IO-googlepubsub
-Extra_css:
+site_name:  Siddhi-IO-googlepubsub
+site_description: Siddhi IO googlepubsub Extension
+site_author: WSO2
+site_url: https://wso2-extensions.github.io/siddhi-io-googlepubsub/
+extra_css:
   - stylesheets/extra.css
-Extra_javascript:
+extra_javascript:
   - javascripts/extra.js
-site_favicon: images/favicon.ico
-extra:
+repo_name: Siddhi-io-googlepubsub
+repo_url: https://github.com/wso2-extensions/siddhi-io-googlepubsub
+copyright: Copyright &copy; 2011 - 2019 WSO2
+theme:
+  name: material
   logo: images/siddhi-logo-w.svg
+  favicon: images/favicon.ico
   palette:
     primary: teal
     accent: teal
-Google_analytics:
+google_analytics:
   - UA-103065-28
   - auto
-Pages:
-  - Welcome to WSO2 Siddhi IO googlepubsub: index.md
-  - API Docs:
-
+extra:
+  social:
+    - type: github
+      link: https://github.com/wso2/siddhi
+    - type: linkedin
+      link: https://www.linkedin.com/groups/13553064
+pages:
+  - Welcome: index.md
+  - API docs:
+      - latest: api/latest.md
   - License: license.md
-theme: material

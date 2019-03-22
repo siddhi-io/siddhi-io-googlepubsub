@@ -7,12 +7,11 @@ The **siddhi-IO-googlepubsub extension** is an extension to <a target="_blank" h
 Find some useful links below:
 
 * <a target="_blank" href="https://github.com/wso2-extensions/siddhi-io-googlepubsub">Source code</a>
-* <a target="_blank" href="https://github.com/wso2-extensions/siddhi-io-googlepubsub/releases/releases">Releases</a>
+* <a target="_blank" href="https://github.com/wso2-extensions/siddhi-io-googlepubsub/releases">Releases</a>
 * <a target="_blank" href="https://github.com/wso2-extensions/siddhi-io-googlepubsub/issues">Issue tracker</a>
 
 ## Latest API Docs 
 
-Latest API Docs is <a target="_blank" href="https://wso2-extensions.github.io/siddhi-io-googlepubsub/api/v1.0.0-SNAPSHOT">v1.0.0-SNAPSHOT</a>.
 
 ## How to use 
 
