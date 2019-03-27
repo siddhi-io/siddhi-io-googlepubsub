@@ -54,12 +54,12 @@ import java.util.Map;
 @Extension(
         name = "googlepubsub",
         namespace = "source",
-        description = "A GooglePubSub Source receives events to be processed by Siddhi, from a topic in GooglePubSub "
-                + "Server.Here, a subscriber client creates a subscription to that topic and consumes messages from "
-                + "the subscription. Only messages published to the topic after the subscription is created are "
-                + "available to subscriber applications. The subscription connects the topic to a subscriber "
-                + "application that receives and processes messages published to the topic. A topic can have multiple "
-                + "subscriptions, but a given subscription belongs to a single topic.",
+        description = "The GooglePubSub source receives events to be processed by Siddhi from a topic in a " +
+                "GooglePubSub server. Here, a subscriber client creates a subscription to that topic and consumes" +
+                " messages via the subscription. The subscription applications receive only the messages that are " +
+                "published after the subscription is created. A subscription connects a topic to a subscriber" +
+                " application, enabling the application to receive and process messages from that topic. A topic " +
+                "can have multiple subscriptions, but a given subscription belongs only to a single topic.",
         parameters = {
                 @Parameter(
                         name = GooglePubSubConstants.GOOGLE_PUB_SUB_SERVER_PROJECT_ID,
@@ -73,7 +73,7 @@ import java.util.Map;
                 ),
                 @Parameter(
                         name = GooglePubSubConstants.SUBSCRIPTION_ID,
-                        description = "The unique ID of the subscription from which messages should be retrieved.",
+                        description = "The unique ID of the subscription from which messages must be retrieved.",
                         type = DataType.STRING
                 ),
                 @Parameter(
@@ -83,20 +83,21 @@ import java.util.Map;
                 ),
         },
         examples = {
-                @Example(description = "This example shows how to subscribe to a googlepubsub topic with all "
-                        + "supporting configurations. With the following configurations the identified source, will "
-                        + "subscribe to a topic having topic.id named as topicA which resides in a googlepubsub "
-                        + "instance with the project.id of 'sp-path-1547649404768'. This GooglePubSub Source "
-                        + "configuration listens to the events coming to a googlepubsub topic. The events are received "
-                        + "in the text format and mapped to a Siddhi event, and sent to a the outputStream.",
-
+                @Example(
                         syntax = "@source(type='googlepubsub',@map(type='text'),\n"
                                 + "topic.id='topicA',\n"
                                 + "project.id='sp-path-1547649404768',\n"
                                 + "credential.path = 'src/test/resources/security/sp.json',\n"
                                 + "subscription.id='subA',\n"
                                 + ")\n"
-                                + "define stream outputStream(message String);"
+                                + "define stream OutputStream(message String);",
+                        description = "This query shows how to subscribe to a googlepubsub topic. Here, a " +
+                                "googlepubsub source subscribes to the 'topicA' topic that resides in the " +
+                                "'sp-path-1547649404768' project within a googlepubsub instance. The events are " +
+                                "received in the text format, mapped to a Siddhi event, and then sent to a stream " +
+                                "named OutputStream."
+
+
                 )
         }
 )
