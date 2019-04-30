@@ -21,12 +21,10 @@ under the License.
 <suite name="Siddhi-Io-googlepubsub-Test-Suite">
     <test name="Siddhi-io-googlepubsub-tests" enabled="true" preserve-order="true" parallel="false">
         <classes>
-            <!--
             <class name="org.wso2.extension.siddhi.io.googlepubsub.sink.TestCaseOfGooglePubSubSink1"/>
             <class name="org.wso2.extension.siddhi.io.googlepubsub.source.TestCaseOfGooglePubSubSource1"/>
             <class name="org.wso2.extension.siddhi.io.googlepubsub.sink.TestCaseOfGooglePubSubSink2"/>
             <class name="org.wso2.extension.siddhi.io.googlepubsub.source.TestCaseOfGooglePubSubSource2"/>
-            -->
         </classes>
     </test>
 </suite>
