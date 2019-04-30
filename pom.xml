@@ -29,7 +29,7 @@ under the License.
     </modules>
     <groupId>org.wso2.extension.siddhi.io.googlepubsub</groupId>
     <artifactId>siddhi-io-googlepubsub-parent</artifactId>
-    <version>1.0.4-SNAPSHOT</version>
+    <version>2.0.0-SNAPSHOT</version>
     <name>Siddhi I/O googlepubsub</name>
 
     <scm>
@@ -73,22 +73,22 @@ under the License.
                 <version>${netty.tcnative.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.wso2.siddhi</groupId>
+                <groupId>io.siddhi</groupId>
                 <artifactId>siddhi-core</artifactId>
                 <version>${siddhi.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.wso2.siddhi</groupId>
+                <groupId>io.siddhi</groupId>
                 <artifactId>siddhi-query-api</artifactId>
                 <version>${siddhi.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.wso2.siddhi</groupId>
+                <groupId>io.siddhi</groupId>
                 <artifactId>siddhi-annotations</artifactId>
                 <version>${siddhi.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.wso2.siddhi</groupId>
+                <groupId>io.siddhi</groupId>
                 <artifactId>siddhi-query-compiler</artifactId>
                 <version>${siddhi.version}</version>
             </dependency>
@@ -157,7 +157,7 @@ under the License.
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.wso2.siddhi</groupId>
+                <groupId>io.siddhi</groupId>
                 <artifactId>siddhi-doc-gen</artifactId>
                 <version>${siddhi.version}</version>
                 <executions>
@@ -194,7 +194,7 @@ under the License.
                 <artifactId>maven-bundle-plugin</artifactId>
             </plugin>
             <plugin>
-                <groupId>org.wso2.siddhi</groupId>
+                <groupId>io.siddhi</groupId>
                 <artifactId>siddhi-doc-gen</artifactId>
                 <version>${siddhi.version}</version>
                 <executions>
@@ -208,8 +208,8 @@ under the License.
         </plugins>
     </build>
     <properties>
-        <siddhi.version>4.1.0</siddhi.version>
-        <siddhi.version.range>[4.0.0,5.0.0)</siddhi.version.range>
+        <siddhi.version>5.0.0</siddhi.version>
+        <siddhi.version.range>[5.0.0,6.0.0)</siddhi.version.range>
         <log4j.version>1.2.17.wso2v1</log4j.version>
         <testing.version>6.11</testing.version>
         <carbon.transport.version>4.4.15</carbon.transport.version>

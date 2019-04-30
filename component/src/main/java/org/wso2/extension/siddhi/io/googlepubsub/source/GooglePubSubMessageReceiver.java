@@ -21,7 +21,7 @@ package org.wso2.extension.siddhi.io.googlepubsub.source;
 import com.google.cloud.pubsub.v1.AckReplyConsumer;
 import com.google.cloud.pubsub.v1.MessageReceiver;
 import com.google.pubsub.v1.PubsubMessage;
-import org.wso2.siddhi.core.stream.input.source.SourceEventListener;
+import io.siddhi.core.stream.input.source.SourceEventListener;
 
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;

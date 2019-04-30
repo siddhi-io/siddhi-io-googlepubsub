@@ -29,9 +29,9 @@ import com.google.cloud.pubsub.v1.TopicAdminSettings;
 import com.google.protobuf.ByteString;
 import com.google.pubsub.v1.ProjectTopicName;
 import com.google.pubsub.v1.PubsubMessage;
+import io.siddhi.core.exception.ConnectionUnavailableException;
+import io.siddhi.core.exception.SiddhiAppCreationException;
 import org.apache.log4j.Logger;
-import org.wso2.siddhi.core.exception.ConnectionUnavailableException;
-import org.wso2.siddhi.core.exception.SiddhiAppCreationException;
 
 import java.io.File;
 import java.io.FileInputStream;
