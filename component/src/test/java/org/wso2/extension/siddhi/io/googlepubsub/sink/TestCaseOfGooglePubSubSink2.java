@@ -22,6 +22,7 @@ import io.siddhi.core.SiddhiAppRuntime;
 import io.siddhi.core.SiddhiManager;
 import io.siddhi.core.exception.SiddhiAppCreationException;
 import io.siddhi.core.stream.input.InputHandler;
+import io.siddhi.core.stream.output.sink.Sink;
 import io.siddhi.query.api.exception.SiddhiAppValidationException;
 import org.apache.log4j.Logger;
 import org.testng.AssertJUnit;
@@ -101,7 +102,7 @@ public class TestCaseOfGooglePubSubSink2 {
         log.info("-----------------------------------------------------------------");
         log.info("Test to publish messages to a non-existing project in the server.");
         log.info("-----------------------------------------------------------------");
-        log = Logger.getLogger(GooglePubSubSink.class);
+        log = Logger.getLogger(Sink.class);
         UnitTestAppender testAppender = new UnitTestAppender();
         log.addAppender(testAppender);
         SiddhiManager siddhiManager = new SiddhiManager();
@@ -134,7 +135,7 @@ public class TestCaseOfGooglePubSubSink2 {
         log.info("-----------------------------------------------------------");
         log.info("Test to publish messages by specifying project.id as empty.");
         log.info("-----------------------------------------------------------");
-        log = Logger.getLogger(GooglePubSubSink.class);
+        log = Logger.getLogger(Sink.class);
         UnitTestAppender testAppender = new UnitTestAppender();
         log.addAppender(testAppender);
         SiddhiManager siddhiManager = new SiddhiManager();

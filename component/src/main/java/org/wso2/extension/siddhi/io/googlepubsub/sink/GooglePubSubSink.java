@@ -197,12 +197,10 @@ public class GooglePubSubSink extends Sink<State> {
             if (e.getStatusCode().getCode() == StatusCode.Code.ALREADY_EXISTS) {
                 log.info("You have the topic '" + topic + "' in google pub sub server.");
             } else {
-                String errorMessage = "An error is caused due to a resource "
+                throw new SiddhiAppRuntimeException("An error is caused due to a resource "
                         + e.getStatusCode().getCode() + " in Google Pub Sub server." + " Check whether you have "
                         + "provided a proper project.id for '" + projectId + "' defined in stream " + siddhiAppName
-                        + ": " + streamID + " and make sure you have enough access to use all resources in API.";
-                log.error(errorMessage);
-                throw new SiddhiAppRuntimeException(errorMessage, e);
+                        + ": " + streamID + " and make sure you have enough access to use all resources in API.", e);
             }
         } catch (IOException e) {
             throw new SiddhiAppRuntimeException("Could not create the topic " + topic + "in the google pub sub "
