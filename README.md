@@ -1,8 +1,7 @@
 siddhi-io-googlepubsub
 ======================================
 
-The **siddhi-IO-googlepubsub extension** is an extension to <a target="_blank" href="https://wso2.github
-.io/siddhi">Siddhi</a> that supports sending messages in text format and receiving messages in text format.
+The **siddhi-IO-googlepubsub extension** allows you to communicate with topics located in googlepubsub servers.
 
 Find some useful links below:
 

@@ -59,8 +59,8 @@ import java.util.concurrent.TimeUnit;
 @Extension(
         name = "googlepubsub",
         namespace = "sink",
-        description = "GooglePubSub Sink publishes messages to a topic in  GooglePubSub server. If the required topic "
-                + "doesn't exist, GooglePubSub Sink creates a topic and publish messages to that topic.",
+        description = "The GooglePubSub sink publishes messages to a topic in the GooglePubSub server. If the " +
+                "required topic does not exist, GooglePubSub Sink creates the topic and publishes messages to it.",
         parameters = {
                 @Parameter(
                         name = GooglePubSubConstants.GOOGLE_PUB_SUB_SERVER_PROJECT_ID,
@@ -69,7 +69,7 @@ import java.util.concurrent.TimeUnit;
                 ),
                 @Parameter(
                         name = GooglePubSubConstants.TOPIC_ID,
-                        description = "The topic ID of the topic to which the messages that are processed by Siddhi "
+                        description = "The ID of the topic to which the messages that are processed by Siddhi "
                                 + "are published. ",
                         type = DataType.STRING
                 ),
@@ -80,19 +80,21 @@ import java.util.concurrent.TimeUnit;
                 ),
         },
         examples = {
-                @Example(description = "This example shows how to publish messages to a topic in the GooglePubSub with "
-                        + "all supportive configurations.Accordingly, the messages are published to a topic having the "
-                        + "topic.id named topicA in the project with a project.id 'sp-path-1547649404768'. If the "
-                        + "required topic already exists in the particular project the messages are directly published "
-                        + "to that topic.If the required topic does not exist, a new topic is created according to the "
-                        + "provided topic.id and project.id. Then the messages are published to the particular topic.",
-
+                @Example(
                         syntax = "@sink(type = 'googlepubsub', @map(type= 'text'),\n"
                                 + "project.id = 'sp-path-1547649404768', \n"
                                 + "credential.path = 'src/test/resources/security/sp.json',\n"
                                 + "topic.id ='topicA',\n "
                                 + ")\n" +
-                                "define stream inputStream(message string);"),
+                                "define stream InputStream(message string);",
+                        description = "This query publishes messages to a topic in the GooglePubSub " +
+                                "server. Here, the messages are published to'topicA' topic in the " +
+                                "'sp-path-1547649404768' project. If the 'topicA' topic already exists in the " +
+                                "'sp-path-1547649404768' project, messages are directly published to that topic. If " +
+                                "it does not exist, a topic with that ID is newly created in the project and then, " +
+                                "the messages are published to that topic.")
+
+
         }
 )
 /*
