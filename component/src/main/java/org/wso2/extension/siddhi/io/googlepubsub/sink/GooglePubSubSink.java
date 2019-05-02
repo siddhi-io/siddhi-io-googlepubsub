@@ -29,26 +29,28 @@ import com.google.cloud.pubsub.v1.TopicAdminSettings;
 import com.google.protobuf.ByteString;
 import com.google.pubsub.v1.ProjectTopicName;
 import com.google.pubsub.v1.PubsubMessage;
+import io.siddhi.annotation.Example;
+import io.siddhi.annotation.Extension;
+import io.siddhi.annotation.Parameter;
+import io.siddhi.annotation.util.DataType;
+import io.siddhi.core.config.SiddhiAppContext;
+import io.siddhi.core.exception.ConnectionUnavailableException;
+import io.siddhi.core.exception.SiddhiAppCreationException;
+import io.siddhi.core.exception.SiddhiAppRuntimeException;
+import io.siddhi.core.stream.ServiceDeploymentInfo;
+import io.siddhi.core.stream.output.sink.Sink;
+import io.siddhi.core.util.config.ConfigReader;
+import io.siddhi.core.util.snapshot.state.State;
+import io.siddhi.core.util.snapshot.state.StateFactory;
+import io.siddhi.core.util.transport.DynamicOptions;
+import io.siddhi.core.util.transport.OptionHolder;
+import io.siddhi.query.api.definition.StreamDefinition;
 import org.apache.log4j.Logger;
 import org.wso2.extension.siddhi.io.googlepubsub.util.GooglePubSubConstants;
-import org.wso2.siddhi.annotation.Example;
-import org.wso2.siddhi.annotation.Extension;
-import org.wso2.siddhi.annotation.Parameter;
-import org.wso2.siddhi.annotation.util.DataType;
-import org.wso2.siddhi.core.config.SiddhiAppContext;
-import org.wso2.siddhi.core.exception.ConnectionUnavailableException;
-import org.wso2.siddhi.core.exception.SiddhiAppCreationException;
-import org.wso2.siddhi.core.exception.SiddhiAppRuntimeException;
-import org.wso2.siddhi.core.stream.output.sink.Sink;
-import org.wso2.siddhi.core.util.config.ConfigReader;
-import org.wso2.siddhi.core.util.transport.DynamicOptions;
-import org.wso2.siddhi.core.util.transport.OptionHolder;
-import org.wso2.siddhi.query.api.definition.StreamDefinition;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -98,7 +100,7 @@ import java.util.concurrent.TimeUnit;
 /*
  * GooglePubSub publishing tasks.
  */
-public class GooglePubSubSink extends Sink {
+public class GooglePubSubSink extends Sink<State> {
 
     private static final Logger log = Logger.getLogger(GooglePubSubSink.class);
     private String streamID;
@@ -111,21 +113,25 @@ public class GooglePubSubSink extends Sink {
 
     @Override
     public Class[] getSupportedInputEventClasses() {
-
         return new Class[]{String.class};
     }
 
     @Override
-    public String[] getSupportedDynamicOptions() {
+    protected ServiceDeploymentInfo exposeServiceDeploymentInfo() {
+        return null;
+    }
 
+    @Override
+    public String[] getSupportedDynamicOptions() {
         return new String[]{GooglePubSubConstants.TOPIC_ID, GooglePubSubConstants.GOOGLE_PUB_SUB_SERVER_PROJECT_ID,
                 GooglePubSubConstants.CREDENTIAL_PATH};
     }
 
     @Override
-    protected void init(StreamDefinition streamDefinition, OptionHolder optionHolder, ConfigReader configReader,
-                        SiddhiAppContext siddhiAppContext) {
-
+    protected StateFactory<State> init(StreamDefinition streamDefinition,
+                                       OptionHolder optionHolder,
+                                       ConfigReader configReader,
+                                       SiddhiAppContext siddhiAppContext) {
         this.siddhiAppName = siddhiAppContext.getName();
         this.streamID = streamDefinition.getId();
         String topicId = optionHolder.validateAndGetStaticValue(GooglePubSubConstants.TOPIC_ID);
@@ -141,12 +147,12 @@ public class GooglePubSubSink extends Sink {
                     + "found or you are not permitted to make authenticated calls. Check the credential.path '"
                     + credentialPath + "' defined in stream " + siddhiAppName + " : " + streamID + ".", e);
         }
+        return null;
     }
 
     @Override
-    public void publish(Object payload, DynamicOptions dynamicOptions) {
-
-        String message = (String) payload;
+    public void publish(Object o, DynamicOptions dynamicOptions, State state) throws ConnectionUnavailableException {
+        String message = (String) o;
         ByteString data = ByteString.copyFromUtf8(message);
         PubsubMessage pubsubMessage = PubsubMessage.newBuilder().setData(data).build();
         publisher.publish(pubsubMessage);
@@ -154,7 +160,6 @@ public class GooglePubSubSink extends Sink {
 
     @Override
     public void connect() throws ConnectionUnavailableException {
-
         createTopic();
         try {
             publisher = Publisher.newBuilder(topic).setCredentialsProvider(FixedCredentialsProvider.create(credentials))
@@ -162,12 +167,10 @@ public class GooglePubSubSink extends Sink {
         } catch (IOException e) {
             throw new ConnectionUnavailableException("Could not create a publisher bound to the topic : " + topic, e);
         }
-
     }
 
     @Override
     public void disconnect() {
-
         if (publisher != null) {
             try {
                 publisher.shutdown();
@@ -181,25 +184,12 @@ public class GooglePubSubSink extends Sink {
 
     @Override
     public void destroy() {
-
-    }
-
-    @Override
-    public Map<String, Object> currentState() {
-
-        return null;
-    }
-
-    @Override
-    public void restoreState(Map<String, Object> map) {
-        //no state to restore
     }
 
     /**
      * Creating a topic.
      */
     private void createTopic() {
-
         try {
             TopicAdminSettings topicAdminSettings = TopicAdminSettings.newBuilder().setCredentialsProvider
                     (FixedCredentialsProvider.create(credentials)).build();

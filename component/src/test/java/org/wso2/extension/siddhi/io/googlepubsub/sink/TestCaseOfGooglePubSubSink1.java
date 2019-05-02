@@ -18,16 +18,18 @@
  */
 package org.wso2.extension.siddhi.io.googlepubsub.sink;
 
+import io.siddhi.core.SiddhiAppRuntime;
+import io.siddhi.core.SiddhiManager;
+import io.siddhi.core.event.Event;
+import io.siddhi.core.stream.input.InputHandler;
+import io.siddhi.core.stream.output.StreamCallback;
 import org.apache.log4j.Logger;
 import org.testng.AssertJUnit;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.wso2.extension.siddhi.io.googlepubsub.util.ResultContainer;
-import org.wso2.siddhi.core.SiddhiAppRuntime;
-import org.wso2.siddhi.core.SiddhiManager;
-import org.wso2.siddhi.core.event.Event;
-import org.wso2.siddhi.core.stream.input.InputHandler;
-import org.wso2.siddhi.core.stream.output.StreamCallback;;
+
+;
 
 public class TestCaseOfGooglePubSubSink1 {
 

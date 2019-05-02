@@ -18,15 +18,17 @@
  */
 package org.wso2.extension.siddhi.io.googlepubsub.sink;
 
+import io.siddhi.core.SiddhiAppRuntime;
+import io.siddhi.core.SiddhiManager;
+import io.siddhi.core.exception.SiddhiAppCreationException;
+import io.siddhi.core.stream.input.InputHandler;
+import io.siddhi.core.stream.output.sink.Sink;
+import io.siddhi.query.api.exception.SiddhiAppValidationException;
 import org.apache.log4j.Logger;
+import org.testng.AssertJUnit;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.wso2.siddhi.core.SiddhiAppRuntime;
-import org.wso2.siddhi.core.SiddhiManager;
-import org.wso2.siddhi.core.exception.SiddhiAppCreationException;
-import org.wso2.siddhi.core.exception.SiddhiAppRuntimeException;
-import org.wso2.siddhi.core.stream.input.InputHandler;
-import org.wso2.siddhi.query.api.exception.SiddhiAppValidationException;
+import org.wso2.extension.siddhi.io.googlepubsub.util.UnitTestAppender;
 
 public class TestCaseOfGooglePubSubSink2 {
 
@@ -94,12 +96,15 @@ public class TestCaseOfGooglePubSubSink2 {
      * Test to configure the GooglePubSub Sink publishes messages to a topic in a non existing project in
      * Google Pub Sub server.
      */
-    @Test(expectedExceptions = SiddhiAppRuntimeException.class)
+    @Test
     public void googlePubSubSimplePublishTest3() throws InterruptedException {
 
         log.info("-----------------------------------------------------------------");
         log.info("Test to publish messages to a non-existing project in the server.");
         log.info("-----------------------------------------------------------------");
+        log = Logger.getLogger(Sink.class);
+        UnitTestAppender testAppender = new UnitTestAppender();
+        log.addAppender(testAppender);
         SiddhiManager siddhiManager = new SiddhiManager();
         // deploying the execution plan
         SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(
@@ -115,18 +120,24 @@ public class TestCaseOfGooglePubSubSink2 {
         siddhiAppRuntime.start();
         fooStream.send(new Object[]{"World"});
         siddhiAppRuntime.start();
+        AssertJUnit.assertTrue(testAppender
+                .getMessages()
+                .contains("An error is caused due to a resource NOT_FOUND in Google Pub Sub server"));
         siddhiAppRuntime.shutdown();
     }
 
     /**
      * Test to configure the GooglePubSub Sink publishes messages to a topic by specifying project.id as empty
      */
-    @Test(expectedExceptions = SiddhiAppRuntimeException.class)
+    @Test
     public void googlePubSubSimplePublishTest4() throws InterruptedException {
 
         log.info("-----------------------------------------------------------");
         log.info("Test to publish messages by specifying project.id as empty.");
         log.info("-----------------------------------------------------------");
+        log = Logger.getLogger(Sink.class);
+        UnitTestAppender testAppender = new UnitTestAppender();
+        log.addAppender(testAppender);
         SiddhiManager siddhiManager = new SiddhiManager();
         // deploying the execution plan
         SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(
@@ -142,6 +153,9 @@ public class TestCaseOfGooglePubSubSink2 {
         siddhiAppRuntime.start();
         fooStream.send(new Object[]{"World"});
         siddhiAppRuntime.start();
+        AssertJUnit.assertTrue(testAppender
+                .getMessages()
+                .contains("An error is caused due to a resource NOT_FOUND in Google Pub Sub server"));
         siddhiAppRuntime.shutdown();
     }
 }
