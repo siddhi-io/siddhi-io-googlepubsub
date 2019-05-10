@@ -157,19 +157,6 @@ under the License.
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>io.siddhi</groupId>
-                <artifactId>siddhi-doc-gen</artifactId>
-                <version>${siddhi.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate-md-docs</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
                 <groupId>org.wso2.carbon.maven</groupId>
                 <artifactId>carbon-feature-plugin</artifactId>
                 <version>${carbon.feature.plugin.version}</version>
