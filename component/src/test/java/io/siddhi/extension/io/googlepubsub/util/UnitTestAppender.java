@@ -16,7 +16,7 @@
  *  under the License.
  *
  */
-package org.wso2.extension.siddhi.io.googlepubsub.util;
+package io.siddhi.extension.io.googlepubsub.util;
 
 import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.spi.LoggingEvent;

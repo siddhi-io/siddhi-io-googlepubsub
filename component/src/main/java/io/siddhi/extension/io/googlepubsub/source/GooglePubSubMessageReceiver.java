@@ -16,7 +16,7 @@
  *  under the License.
  *
  */
-package org.wso2.extension.siddhi.io.googlepubsub.source;
+package io.siddhi.extension.io.googlepubsub.source;
 
 import com.google.cloud.pubsub.v1.AckReplyConsumer;
 import com.google.cloud.pubsub.v1.MessageReceiver;
