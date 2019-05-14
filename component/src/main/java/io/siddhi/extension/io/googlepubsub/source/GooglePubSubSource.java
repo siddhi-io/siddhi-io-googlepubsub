@@ -16,7 +16,7 @@
  *  under the License.
  *
  */
-package org.wso2.extension.siddhi.io.googlepubsub.source;
+package io.siddhi.extension.io.googlepubsub.source;
 
 import com.google.api.gax.core.FixedCredentialsProvider;
 import com.google.api.gax.rpc.ApiException;
@@ -43,8 +43,8 @@ import io.siddhi.core.util.config.ConfigReader;
 import io.siddhi.core.util.snapshot.state.State;
 import io.siddhi.core.util.snapshot.state.StateFactory;
 import io.siddhi.core.util.transport.OptionHolder;
+import io.siddhi.extension.io.googlepubsub.util.GooglePubSubConstants;
 import org.apache.log4j.Logger;
-import org.wso2.extension.siddhi.io.googlepubsub.util.GooglePubSubConstants;
 
 import java.io.File;
 import java.io.FileInputStream;

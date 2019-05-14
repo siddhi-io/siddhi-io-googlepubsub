@@ -27,7 +27,7 @@ Latest API Docs is <a target="_blank" href="https://wso2-extensions.github.io/si
 
 ```
      <dependency>
-             <groupId>org.wso2.extension.siddhi.io.googlepubsub</groupId>
+             <groupId>io.siddhi.extension.io.googlepubsub</groupId>
              <artifactId>siddhi-io-googlepubsub</artifactId>
              <version>x.x.x</version>
           </dependency>

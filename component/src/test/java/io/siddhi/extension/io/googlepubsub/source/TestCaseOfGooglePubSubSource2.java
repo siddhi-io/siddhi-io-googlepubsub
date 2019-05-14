@@ -16,17 +16,17 @@
  *  under the License.
  *
  */
-package org.wso2.extension.siddhi.io.googlepubsub.source;
+package io.siddhi.extension.io.googlepubsub.source;
 
 import io.siddhi.core.SiddhiAppRuntime;
 import io.siddhi.core.SiddhiManager;
 import io.siddhi.core.exception.SiddhiAppCreationException;
+import io.siddhi.extension.io.googlepubsub.util.UnitTestAppender;
 import io.siddhi.query.api.exception.SiddhiAppValidationException;
 import org.apache.log4j.Logger;
 import org.testng.AssertJUnit;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.wso2.extension.siddhi.io.googlepubsub.util.UnitTestAppender;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

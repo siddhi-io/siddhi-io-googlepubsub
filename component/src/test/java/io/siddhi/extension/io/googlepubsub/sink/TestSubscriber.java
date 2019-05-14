@@ -16,7 +16,7 @@
  *  under the License.
  *
  */
-package org.wso2.extension.siddhi.io.googlepubsub.sink;
+package io.siddhi.extension.io.googlepubsub.sink;
 
 import com.google.api.gax.core.FixedCredentialsProvider;
 import com.google.api.gax.rpc.ApiException;
@@ -30,8 +30,8 @@ import com.google.pubsub.v1.ProjectSubscriptionName;
 import com.google.pubsub.v1.ProjectTopicName;
 import com.google.pubsub.v1.PubsubMessage;
 import com.google.pubsub.v1.PushConfig;
+import io.siddhi.extension.io.googlepubsub.util.ResultContainer;
 import org.apache.log4j.Logger;
-import org.wso2.extension.siddhi.io.googlepubsub.util.ResultContainer;
 
 import java.io.File;
 import java.io.FileInputStream;

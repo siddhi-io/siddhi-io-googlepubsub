@@ -27,7 +27,7 @@ under the License.
     <modules>
         <module>component</module>
     </modules>
-    <groupId>org.wso2.extension.siddhi.io.googlepubsub</groupId>
+    <groupId>io.siddhi.extension.io.googlepubsub</groupId>
     <artifactId>siddhi-io-googlepubsub-parent</artifactId>
     <version>2.0.1-SNAPSHOT</version>
     <name>Siddhi I/O googlepubsub</name>
@@ -116,19 +116,19 @@ under the License.
                 </exclusions>
             </dependency>
             <dependency>
-                <groupId>org.wso2.extension.siddhi.map.xml</groupId>
+                <groupId>io.siddhi.extension.map.xml</groupId>
                 <artifactId>siddhi-map-xml</artifactId>
                 <version>${siddhi.map.xml.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>org.wso2.extension.siddhi.map.json</groupId>
+                <groupId>io.siddhi.extension.map.json</groupId>
                 <artifactId>siddhi-map-json</artifactId>
                 <version>${siddhi.map.json.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>org.wso2.extension.siddhi.map.text</groupId>
+                <groupId>io.siddhi.extension.map.text</groupId>
                 <artifactId>siddhi-map-text</artifactId>
                 <version>${text.mapper.version}</version>
             </dependency>
@@ -156,19 +156,6 @@ under the License.
                     <autoVersionSubmodules>true</autoVersionSubmodules>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>io.siddhi</groupId>
-                <artifactId>siddhi-doc-gen</artifactId>
-                <version>${siddhi.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate-md-docs</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
             <plugin>
                 <groupId>org.wso2.carbon.maven</groupId>
                 <artifactId>carbon-feature-plugin</artifactId>
@@ -222,9 +209,9 @@ under the License.
         <netty.tcnative.version>2.0.17.Final</netty.tcnative.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <org.testcontainers.version>1.8.0</org.testcontainers.version>
-        <siddhi.map.json.version>5.0.1</siddhi.map.json.version>
-        <siddhi.map.xml.version>5.0.1</siddhi.map.xml.version>
-        <text.mapper.version>2.0.0</text.mapper.version>
+        <siddhi.map.json.version>5.0.2</siddhi.map.json.version>
+        <siddhi.map.xml.version>5.0.2</siddhi.map.xml.version>
+        <text.mapper.version>2.0.1</text.mapper.version>
         <jacoco.plugin.version>0.7.9</jacoco.plugin.version>
         <carbon.feature.plugin.version>3.0.0</carbon.feature.plugin.version>
     </properties>

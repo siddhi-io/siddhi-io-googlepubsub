@@ -16,18 +16,18 @@
  *  under the License.
  *
  */
-package org.wso2.extension.siddhi.io.googlepubsub.sink;
+package io.siddhi.extension.io.googlepubsub.sink;
 
 import io.siddhi.core.SiddhiAppRuntime;
 import io.siddhi.core.SiddhiManager;
 import io.siddhi.core.event.Event;
 import io.siddhi.core.stream.input.InputHandler;
 import io.siddhi.core.stream.output.StreamCallback;
+import io.siddhi.extension.io.googlepubsub.util.ResultContainer;
 import org.apache.log4j.Logger;
 import org.testng.AssertJUnit;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.wso2.extension.siddhi.io.googlepubsub.util.ResultContainer;
 
 ;
 

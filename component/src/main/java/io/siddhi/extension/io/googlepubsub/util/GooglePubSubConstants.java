@@ -16,7 +16,7 @@
  *  under the License.
  *
  */
-package org.wso2.extension.siddhi.io.googlepubsub.util;
+package io.siddhi.extension.io.googlepubsub.util;
 
 /**
  * This class represents GooglePubSub specific Constants for the GooglePubSub connection.
