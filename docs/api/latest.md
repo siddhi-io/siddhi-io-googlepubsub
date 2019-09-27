@@ -1,12 +1,16 @@
-# API Docs - v1.0.0-SNAPSHOT
+# API Docs - v2.0.2
+
+!!! Info "Tested Siddhi Core version: *<a target="_blank" href="http://siddhi.io/en/v5.1/docs/query-guide/">5.1.5</a>*"
+    It could also support other Siddhi Core minor versions.
 
 ## Sink
 
-### googlepubsub *<a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#sink">(Sink)</a>*
-
-<p style="word-wrap: break-word">GooglePubSub Sink publishes messages to a topic in  GooglePubSub server. If the required topic doesn't exist, GooglePubSub Sink creates a topic and publish messages to that topic.</p>
-
+### googlepubsub *<a target="_blank" href="http://siddhi.io/en/v5.1/docs/query-guide/#sink">(Sink)</a>*
+<p></p>
+<p style="word-wrap: break-word;margin: 0;">The GooglePubSub sink publishes messages to a topic in the GooglePubSub server. If the required topic does not exist, GooglePubSub Sink creates the topic and publishes messages to it.</p>
+<p></p>
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
+
 ```
 @sink(type="googlepubsub", project.id="<STRING>", topic.id="<STRING>", credential.path="<STRING>", @map(...)))
 ```
@@ -23,7 +27,7 @@
     </tr>
     <tr>
         <td style="vertical-align: top">project.id</td>
-        <td style="vertical-align: top; word-wrap: break-word">The unique ID of the GCP console project within which the topic is created.</td>
+        <td style="vertical-align: top; word-wrap: break-word"><p style="word-wrap: break-word;margin: 0;">The unique ID of the GCP console project within which the topic is created.</p></td>
         <td style="vertical-align: top"></td>
         <td style="vertical-align: top">STRING</td>
         <td style="vertical-align: top">No</td>
@@ -31,7 +35,7 @@
     </tr>
     <tr>
         <td style="vertical-align: top">topic.id</td>
-        <td style="vertical-align: top; word-wrap: break-word">The topic ID of the topic to which the messages that are processed by Siddhi are published. </td>
+        <td style="vertical-align: top; word-wrap: break-word"><p style="word-wrap: break-word;margin: 0;">The ID of the topic to which the messages that are processed by Siddhi are published. </p></td>
         <td style="vertical-align: top"></td>
         <td style="vertical-align: top">STRING</td>
         <td style="vertical-align: top">No</td>
@@ -39,7 +43,7 @@
     </tr>
     <tr>
         <td style="vertical-align: top">credential.path</td>
-        <td style="vertical-align: top; word-wrap: break-word">The file path of the service account credentials.</td>
+        <td style="vertical-align: top; word-wrap: break-word"><p style="word-wrap: break-word;margin: 0;">The file path of the service account credentials.</p></td>
         <td style="vertical-align: top"></td>
         <td style="vertical-align: top">STRING</td>
         <td style="vertical-align: top">No</td>
@@ -55,17 +59,19 @@ project.id = 'sp-path-1547649404768',
 credential.path = 'src/test/resources/security/sp.json',
 topic.id ='topicA',
  )
-define stream inputStream(message string);
+define stream InputStream(message string);
 ```
-<p style="word-wrap: break-word">This example shows how to publish messages to a topic in the GooglePubSub with all supportive configurations.Accordingly, the messages are published to a topic having the topic.id named topicA in the project with a project.id 'sp-path-1547649404768'. If the required topic already exists in the particular project the messages are directly published to that topic.If the required topic does not exist, a new topic is created according to the provided topic.id and project.id. Then the messages are published to the particular topic.</p>
-
+<p></p>
+<p style="word-wrap: break-word;margin: 0;">This query publishes messages to a topic in the GooglePubSub server. Here, the messages are published to'topicA' topic in the 'sp-path-1547649404768' project. If the 'topicA' topic already exists in the 'sp-path-1547649404768' project, messages are directly published to that topic. If it does not exist, a topic with that ID is newly created in the project and then, the messages are published to that topic.</p>
+<p></p>
 ## Source
 
-### googlepubsub *<a target="_blank" href="https://wso2.github.io/siddhi/documentation/siddhi-4.0/#source">(Source)</a>*
-
-<p style="word-wrap: break-word">A GooglePubSub Source receives events to be processed by Siddhi, from a topic in GooglePubSub Server.Here, a subscriber client creates a subscription to that topic and consumes messages from the subscription. Only messages published to the topic after the subscription is created are available to subscriber applications. The subscription connects the topic to a subscriber application that receives and processes messages published to the topic. A topic can have multiple subscriptions, but a given subscription belongs to a single topic.</p>
-
+### googlepubsub *<a target="_blank" href="http://siddhi.io/en/v5.1/docs/query-guide/#source">(Source)</a>*
+<p></p>
+<p style="word-wrap: break-word;margin: 0;">The GooglePubSub source receives events to be processed by Siddhi from a topic in a GooglePubSub server. Here, a subscriber client creates a subscription to that topic and consumes messages via the subscription. The subscription applications receive only the messages that are published after the subscription is created. A subscription connects a topic to a subscriber application, enabling the application to receive and process messages from that topic. A topic can have multiple subscriptions, but a given subscription belongs only to a single topic.</p>
+<p></p>
 <span id="syntax" class="md-typeset" style="display: block; font-weight: bold;">Syntax</span>
+
 ```
 @source(type="googlepubsub", project.id="<STRING>", topic.id="<STRING>", subscription.id="<STRING>", credential.path="<STRING>", @map(...)))
 ```
@@ -82,7 +88,7 @@ define stream inputStream(message string);
     </tr>
     <tr>
         <td style="vertical-align: top">project.id</td>
-        <td style="vertical-align: top; word-wrap: break-word">The unique ID of the GCP console project within which the topic is created.</td>
+        <td style="vertical-align: top; word-wrap: break-word"><p style="word-wrap: break-word;margin: 0;">The unique ID of the GCP console project within which the topic is created.</p></td>
         <td style="vertical-align: top"></td>
         <td style="vertical-align: top">STRING</td>
         <td style="vertical-align: top">No</td>
@@ -90,7 +96,7 @@ define stream inputStream(message string);
     </tr>
     <tr>
         <td style="vertical-align: top">topic.id</td>
-        <td style="vertical-align: top; word-wrap: break-word">The unique ID of the topic from which the messages are received.</td>
+        <td style="vertical-align: top; word-wrap: break-word"><p style="word-wrap: break-word;margin: 0;">The unique ID of the topic from which the messages are received.</p></td>
         <td style="vertical-align: top"></td>
         <td style="vertical-align: top">STRING</td>
         <td style="vertical-align: top">No</td>
@@ -98,7 +104,7 @@ define stream inputStream(message string);
     </tr>
     <tr>
         <td style="vertical-align: top">subscription.id</td>
-        <td style="vertical-align: top; word-wrap: break-word">The unique ID of the subscription from which messages should be retrieved.</td>
+        <td style="vertical-align: top; word-wrap: break-word"><p style="word-wrap: break-word;margin: 0;">The unique ID of the subscription from which messages must be retrieved.</p></td>
         <td style="vertical-align: top"></td>
         <td style="vertical-align: top">STRING</td>
         <td style="vertical-align: top">No</td>
@@ -106,7 +112,7 @@ define stream inputStream(message string);
     </tr>
     <tr>
         <td style="vertical-align: top">credential.path</td>
-        <td style="vertical-align: top; word-wrap: break-word">The file path of the service account credentials.</td>
+        <td style="vertical-align: top; word-wrap: break-word"><p style="word-wrap: break-word;margin: 0;">The file path of the service account credentials.</p></td>
         <td style="vertical-align: top"></td>
         <td style="vertical-align: top">STRING</td>
         <td style="vertical-align: top">No</td>
@@ -123,7 +129,8 @@ project.id='sp-path-1547649404768',
 credential.path = 'src/test/resources/security/sp.json',
 subscription.id='subA',
 )
-define stream outputStream(message String);
+define stream OutputStream(message String);
 ```
-<p style="word-wrap: break-word">This example shows how to subscribe to a googlepubsub topic with all supporting configurations. With the following configurations the identified source, will subscribe to a topic having topic.id named as topicA which resides in a googlepubsub instance with the project.id of 'sp-path-1547649404768'. This GooglePubSub Source configuration listens to the events coming to a googlepubsub topic. The events are received in the text format and mapped to a Siddhi event, and sent to a the outputStream.</p>
-
+<p></p>
+<p style="word-wrap: break-word;margin: 0;">This query shows how to subscribe to a googlepubsub topic. Here, a googlepubsub source subscribes to the 'topicA' topic that resides in the 'sp-path-1547649404768' project within a googlepubsub instance. The events are received in the text format, mapped to a Siddhi event, and then sent to a stream named OutputStream.</p>
+<p></p>
