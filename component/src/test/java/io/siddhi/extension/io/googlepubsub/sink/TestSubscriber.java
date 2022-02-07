@@ -31,7 +31,8 @@ import com.google.pubsub.v1.ProjectTopicName;
 import com.google.pubsub.v1.PubsubMessage;
 import com.google.pubsub.v1.PushConfig;
 import io.siddhi.extension.io.googlepubsub.util.ResultContainer;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -43,7 +44,7 @@ import java.io.IOException;
  */
 public class TestSubscriber {
 
-    private static final Logger log = Logger.getLogger(TestSubscriber.class);
+    private static final Logger log = LogManager.getLogger(TestSubscriber.class);
     private ResultContainer resultContainer;
     private boolean eventArrived;
     private int count;

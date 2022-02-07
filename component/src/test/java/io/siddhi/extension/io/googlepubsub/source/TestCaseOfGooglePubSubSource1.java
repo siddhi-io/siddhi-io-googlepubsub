@@ -24,7 +24,8 @@ import io.siddhi.core.event.Event;
 import io.siddhi.core.stream.input.source.Source;
 import io.siddhi.core.stream.output.StreamCallback;
 import io.siddhi.core.util.SiddhiTestHelper;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -34,7 +35,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class TestCaseOfGooglePubSubSource1 {
 
-    private static Logger log = Logger.getLogger(TestCaseOfGooglePubSubSource1.class);
+    private static final Logger log = (Logger) LogManager.getLogger(TestCaseOfGooglePubSubSource1.class);
     private AtomicInteger count = new AtomicInteger(0);
     private AtomicInteger count1 = new AtomicInteger(0);
     private int waitTime = 50;
@@ -211,7 +212,6 @@ public class TestCaseOfGooglePubSubSource1 {
         log.info("--------------------------------------------------------------------------------");
         log.info("Test to configure Google Pub Sub Source with pausing and resuming functionality.");
         log.info("--------------------------------------------------------------------------------");
-        log = Logger.getLogger(GooglePubSubSource.class);
         // deploying the execution plan
         SiddhiManager siddhiManager = new SiddhiManager();
         SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(

@@ -93,8 +93,8 @@ under the License.
                 <version>${siddhi.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.log4j.wso2</groupId>
-                <artifactId>log4j</artifactId>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
                 <version>${log4j.version}</version>
                 <exclusions>
                     <exclusion>
@@ -195,9 +195,9 @@ under the License.
         </plugins>
     </build>
     <properties>
-        <siddhi.version>5.1.5</siddhi.version>
+        <siddhi.version>5.1.21</siddhi.version>
         <siddhi.version.range>[5.0.0,6.0.0)</siddhi.version.range>
-        <log4j.version>1.2.17.wso2v1</log4j.version>
+        <log4j.version>2.17.1</log4j.version>
         <testing.version>6.11</testing.version>
         <carbon.transport.version>4.4.15</carbon.transport.version>
         <jacoco.plugin.version>0.7.9</jacoco.plugin.version>

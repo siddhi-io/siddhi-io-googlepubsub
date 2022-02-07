@@ -23,7 +23,9 @@ import io.siddhi.core.SiddhiManager;
 import io.siddhi.core.exception.SiddhiAppCreationException;
 import io.siddhi.extension.io.googlepubsub.util.UnitTestAppender;
 import io.siddhi.query.api.exception.SiddhiAppValidationException;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.testng.AssertJUnit;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -32,7 +34,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class TestCaseOfGooglePubSubSource2 {
 
-    private static Logger log = Logger.getLogger(TestCaseOfGooglePubSubSource1.class);
+    private static final Logger log = (Logger) LogManager.getLogger(TestCaseOfGooglePubSubSource1.class);
     private AtomicInteger count = new AtomicInteger(0);
     private AtomicInteger count1 = new AtomicInteger(0);
     private int waitTime = 50;
@@ -83,9 +85,11 @@ public class TestCaseOfGooglePubSubSource2 {
      log.info("---------------------------------------------------------------------------------------------------");
      log.info("Test to receive messages by subscribing to topic in an unavailable project of google pubsub server.");
      log.info("---------------------------------------------------------------------------------------------------");
-     log = Logger.getLogger(GooglePubSubSource.class);
-     UnitTestAppender appender = new UnitTestAppender();
-     log.addAppender(appender);
+     UnitTestAppender appender = new UnitTestAppender("UnitTestAppender", null);
+     final Logger logger = (Logger) LogManager.getRootLogger();
+     logger.setLevel(Level.ALL);
+     logger.addAppender(appender);
+     appender.start();
      SiddhiManager siddhiManager = new SiddhiManager();
      SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(
                 "@App:name('TestExecutionPlan1') "
@@ -100,8 +104,11 @@ public class TestCaseOfGooglePubSubSource2 {
                         + "Define stream FooStream2 (message string);"
                         + "from FooStream2 select message insert into BarStream2;");
      siddhiAppRuntime.start();
-     AssertJUnit.assertTrue(appender.getMessages().contains("Error in connecting to the resources at "));
+        AssertJUnit.assertTrue(((UnitTestAppender) logger.getAppenders().
+                get("UnitTestAppender")).getMessages().
+                contains("Error in connecting to the resources at "));
      siddhiAppRuntime.shutdown();
+        logger.removeAppender(appender);
     }
 
     /**
@@ -114,9 +121,11 @@ public class TestCaseOfGooglePubSubSource2 {
         log.info("----------------------------------------------------------------------------------------");
         log.info("Test to receive messages by subscribing to a non-existing topic in google pubsub server.");
         log.info("----------------------------------------------------------------------------------------");
-        log = Logger.getLogger(GooglePubSubSource.class);
-        UnitTestAppender appender = new UnitTestAppender();
-        log.addAppender(appender);
+        UnitTestAppender appender = new UnitTestAppender("UnitTestAppender", null);
+        final Logger logger = (Logger) LogManager.getRootLogger();
+        logger.setLevel(Level.ALL);
+        logger.addAppender(appender);
+        appender.start();
         SiddhiManager siddhiManager = new SiddhiManager();
         SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(
                 "@App:name('TestExecutionPlan1') "
@@ -131,8 +140,11 @@ public class TestCaseOfGooglePubSubSource2 {
                         + "Define stream FooStream2 (message string);"
                         + "from FooStream2 select message insert into BarStream2;");
         siddhiAppRuntime.start();
-        AssertJUnit.assertTrue(appender.getMessages().contains("Error in connecting to the resources at "));
+        AssertJUnit.assertTrue(((UnitTestAppender) logger.getAppenders().
+                get("UnitTestAppender")).getMessages().
+                contains("Error in connecting to the resources at "));
         siddhiManager.shutdown();
+        logger.removeAppender(appender);
     }
 
     /**
