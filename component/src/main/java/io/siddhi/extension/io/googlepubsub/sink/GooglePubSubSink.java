@@ -46,7 +46,8 @@ import io.siddhi.core.util.transport.DynamicOptions;
 import io.siddhi.core.util.transport.OptionHolder;
 import io.siddhi.extension.io.googlepubsub.util.GooglePubSubConstants;
 import io.siddhi.query.api.definition.StreamDefinition;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -102,7 +103,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class GooglePubSubSink extends Sink<State> {
 
-    private static final Logger log = Logger.getLogger(GooglePubSubSink.class);
+    private static final Logger log = LogManager.getLogger(GooglePubSubSink.class);
     private String streamID;
     private String siddhiAppName;
     private GoogleCredentials credentials;

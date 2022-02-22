@@ -24,7 +24,9 @@ import io.siddhi.core.event.Event;
 import io.siddhi.core.stream.input.InputHandler;
 import io.siddhi.core.stream.output.StreamCallback;
 import io.siddhi.extension.io.googlepubsub.util.ResultContainer;
-import org.apache.log4j.Logger;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.testng.AssertJUnit;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -33,7 +35,7 @@ import org.testng.annotations.Test;
 
 public class TestCaseOfGooglePubSubSink1 {
 
-    private static Logger log = Logger.getLogger(TestCaseOfGooglePubSubSink1.class);
+    private static final Logger log = LogManager.getLogger(TestCaseOfGooglePubSubSink1.class);
     private volatile int count;
     private volatile boolean eventArrived;
 

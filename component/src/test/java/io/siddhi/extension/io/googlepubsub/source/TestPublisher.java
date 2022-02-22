@@ -31,7 +31,8 @@ import com.google.pubsub.v1.ProjectTopicName;
 import com.google.pubsub.v1.PubsubMessage;
 import io.siddhi.core.exception.ConnectionUnavailableException;
 import io.siddhi.core.exception.SiddhiAppCreationException;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -44,7 +45,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class TestPublisher {
 
-    private static final Logger log = Logger.getLogger(TestPublisher.class);
+    private static final Logger log = LogManager.getLogger(TestPublisher.class);
 
     private TopicAdminClient topicAdminClient;
     private String projectId;

@@ -22,17 +22,18 @@ import io.siddhi.core.SiddhiAppRuntime;
 import io.siddhi.core.SiddhiManager;
 import io.siddhi.core.exception.SiddhiAppCreationException;
 import io.siddhi.core.stream.input.InputHandler;
-import io.siddhi.core.stream.output.sink.Sink;
 import io.siddhi.extension.io.googlepubsub.util.UnitTestAppender;
 import io.siddhi.query.api.exception.SiddhiAppValidationException;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.testng.AssertJUnit;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class TestCaseOfGooglePubSubSink2 {
 
-    private static Logger log = Logger.getLogger(TestCaseOfGooglePubSubSink1.class);
+    private static final Logger log = (Logger) LogManager.getLogger(TestCaseOfGooglePubSubSink1.class);
     private volatile int count;
     private volatile boolean eventArrived;
 
@@ -102,9 +103,11 @@ public class TestCaseOfGooglePubSubSink2 {
         log.info("-----------------------------------------------------------------");
         log.info("Test to publish messages to a non-existing project in the server.");
         log.info("-----------------------------------------------------------------");
-        log = Logger.getLogger(Sink.class);
-        UnitTestAppender testAppender = new UnitTestAppender();
-        log.addAppender(testAppender);
+        UnitTestAppender appender = new UnitTestAppender("UnitTestAppender", null);
+        final Logger logger = (Logger) LogManager.getRootLogger();
+        logger.setLevel(Level.ALL);
+        logger.addAppender(appender);
+        appender.start();
         SiddhiManager siddhiManager = new SiddhiManager();
         // deploying the execution plan
         SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(
@@ -120,10 +123,11 @@ public class TestCaseOfGooglePubSubSink2 {
         siddhiAppRuntime.start();
         fooStream.send(new Object[]{"World"});
         siddhiAppRuntime.start();
-        AssertJUnit.assertTrue(testAppender
-                .getMessages()
-                .contains("An error is caused due to a resource NOT_FOUND in Google Pub Sub server"));
+        AssertJUnit.assertTrue(((UnitTestAppender) logger.getAppenders().
+                get("UnitTestAppender")).getMessages().
+                contains("An error is caused due to a resource NOT_FOUND in Google Pub Sub server"));
         siddhiAppRuntime.shutdown();
+        logger.removeAppender(appender);
     }
 
     /**
@@ -135,9 +139,11 @@ public class TestCaseOfGooglePubSubSink2 {
         log.info("-----------------------------------------------------------");
         log.info("Test to publish messages by specifying project.id as empty.");
         log.info("-----------------------------------------------------------");
-        log = Logger.getLogger(Sink.class);
-        UnitTestAppender testAppender = new UnitTestAppender();
-        log.addAppender(testAppender);
+        UnitTestAppender appender = new UnitTestAppender("UnitTestAppender", null);
+        final Logger logger = (Logger) LogManager.getRootLogger();
+        logger.setLevel(Level.ALL);
+        logger.addAppender(appender);
+        appender.start();
         SiddhiManager siddhiManager = new SiddhiManager();
         // deploying the execution plan
         SiddhiAppRuntime siddhiAppRuntime = siddhiManager.createSiddhiAppRuntime(
@@ -153,9 +159,10 @@ public class TestCaseOfGooglePubSubSink2 {
         siddhiAppRuntime.start();
         fooStream.send(new Object[]{"World"});
         siddhiAppRuntime.start();
-        AssertJUnit.assertTrue(testAppender
-                .getMessages()
-                .contains("An error is caused due to a resource NOT_FOUND in Google Pub Sub server"));
+        AssertJUnit.assertTrue(((UnitTestAppender) logger.getAppenders().
+                get("UnitTestAppender")).getMessages().
+                contains("An error is caused due to a resource NOT_FOUND in Google Pub Sub server"));
         siddhiAppRuntime.shutdown();
+        logger.removeAppender(appender);
     }
 }

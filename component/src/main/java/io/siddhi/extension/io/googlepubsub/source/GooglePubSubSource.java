@@ -44,7 +44,8 @@ import io.siddhi.core.util.snapshot.state.State;
 import io.siddhi.core.util.snapshot.state.StateFactory;
 import io.siddhi.core.util.transport.OptionHolder;
 import io.siddhi.extension.io.googlepubsub.util.GooglePubSubConstants;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -106,7 +107,7 @@ import java.io.IOException;
 
 public class GooglePubSubSource extends Source<State> {
 
-    private static final Logger log = Logger.getLogger(GooglePubSubSource.class);
+    private static final Logger log = LogManager.getLogger(GooglePubSubSource.class);
     private String streamID;
     private String siddhiAppName;
     private SubscriptionAdminClient subscriptionAdminClient;
