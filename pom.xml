@@ -209,9 +209,9 @@ under the License.
         <netty.tcnative.version>2.0.17.Final</netty.tcnative.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <org.testcontainers.version>1.8.0</org.testcontainers.version>
-        <siddhi.map.json.version>5.0.2</siddhi.map.json.version>
-        <siddhi.map.xml.version>5.0.2</siddhi.map.xml.version>
-        <text.mapper.version>2.0.1</text.mapper.version>
+        <siddhi.map.json.version>5.2.2</siddhi.map.json.version>
+        <siddhi.map.xml.version>5.2.2</siddhi.map.xml.version>
+        <text.mapper.version>2.1.1</text.mapper.version>
         <jacoco.plugin.version>0.7.9</jacoco.plugin.version>
         <carbon.feature.plugin.version>3.0.0</carbon.feature.plugin.version>
     </properties>
